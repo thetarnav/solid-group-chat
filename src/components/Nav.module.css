@@ -1,0 +1,18 @@
+.Nav {
+	@apply flex justify-between items-center;
+	@apply py-4 px-8;
+	@apply bg-gradient-to-r from-blue-700 to-blue-500 text-blue-50;
+}
+
+.Logo {
+	@apply text-xl font-bold;
+}
+
+.User {
+	@apply flex items-center space-x-4;
+	:global {
+		.username {
+			@apply font-semibold;
+		}
+	}
+}

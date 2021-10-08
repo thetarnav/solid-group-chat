@@ -1,0 +1,8 @@
+.Button {
+	@apply py-2 px-4;
+	@apply bg-blue-600 text-blue-50 font-semibold rounded;
+	@apply transition-colors;
+	&:hover {
+		@apply bg-blue-800;
+	}
+}
