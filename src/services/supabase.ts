@@ -1,4 +1,4 @@
-import { definitions } from '@/api/types'
+import { definitions } from '@/types/supabase'
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://inbmfyzbytmwbkzvwmlz.supabase.co'

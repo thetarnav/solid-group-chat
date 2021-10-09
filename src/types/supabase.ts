@@ -25,6 +25,8 @@ export interface paths {
 					messages?: parameters['rowFilter.chats.messages']
 					/** List with UserIDs of users that joined this chat. */
 					members?: parameters['rowFilter.chats.members']
+					/** What's the name of the chat */
+					name?: parameters['rowFilter.chats.name']
 					/** Filtering Columns */
 					select?: parameters['select']
 					/** Ordering */
@@ -84,6 +86,8 @@ export interface paths {
 					messages?: parameters['rowFilter.chats.messages']
 					/** List with UserIDs of users that joined this chat. */
 					members?: parameters['rowFilter.chats.members']
+					/** What's the name of the chat */
+					name?: parameters['rowFilter.chats.name']
 				}
 				header: {
 					/** Preference */
@@ -107,6 +111,8 @@ export interface paths {
 					messages?: parameters['rowFilter.chats.messages']
 					/** List with UserIDs of users that joined this chat. */
 					members?: parameters['rowFilter.chats.members']
+					/** What's the name of the chat */
+					name?: parameters['rowFilter.chats.name']
 				}
 				body: {
 					/** chats */
@@ -238,6 +244,8 @@ export interface definitions {
 		}[]
 		/** List with UserIDs of users that joined this chat. */
 		members: string[]
+		/** What's the name of the chat */
+		name: string
 	}
 	/** list with usernames and avatars */
 	users: {
@@ -283,6 +291,8 @@ export interface parameters {
 	'rowFilter.chats.messages': string
 	/** List with UserIDs of users that joined this chat. */
 	'rowFilter.chats.members': string
+	/** What's the name of the chat */
+	'rowFilter.chats.name': string
 	/** users */
 	'body.users': definitions['users']
 	'rowFilter.users.uuid': string

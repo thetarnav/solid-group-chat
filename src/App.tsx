@@ -1,10 +1,9 @@
-import { Component, createEffect, on } from 'solid-js'
 import { useNavigate, useRoutes } from 'solid-app-router'
 import Nav from './components/Nav'
 
 import styles from './App.module.css'
 import { routes } from './router'
-import { isLoggedIn } from './services/auth'
+import { isLoggedIn } from './stores/auth'
 
 const App: Component = () => {
 	const Routes = useRoutes(routes)
@@ -22,7 +21,9 @@ const App: Component = () => {
 		<div class={styles.App}>
 			<Nav class={styles.Nav} />
 			<main>
-				<Routes />
+				<Suspense fallback={<p>Loading...</p>}>
+					<Routes />
+				</Suspense>
 			</main>
 		</div>
 	)

@@ -1,7 +1,6 @@
 import { Session } from '@supabase/supabase-js'
-import { auth } from './supabase'
-import { createStore } from 'solid-js/store'
-import { insertUser } from '@/api/queries'
+import { auth } from '../services/supabase'
+import { insertUser } from '@/services/db'
 
 export const [authState, setAuthState] = createStore({
 	session: null as null | Session,

@@ -1,5 +1,5 @@
 import { Component } from 'solid-js'
-import { signIn } from '@/services/auth'
+import { signIn } from '@/stores/auth'
 import Button from '@/components/Button'
 
 import styles from './hello.module.css'

@@ -1,4 +1,4 @@
-import { isLoggedIn, signOut, username } from '@/services/auth'
+import { isLoggedIn, signOut, username } from '@/stores/auth'
 import { Component, Show } from 'solid-js'
 import Button from './Button'
 
