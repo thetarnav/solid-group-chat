@@ -4,11 +4,27 @@ import useChats from '@/stores/chats'
 import styles from './Chats.module.css'
 
 import ChatCard from './ChatItem'
+import InputModal from '@/components/InputModal'
 
 const ChatsPage: Component = () => {
 	if (!useAuthGuard()) return
+	const {
+		state: chats,
+		createChat,
+		removeChat,
+		getChat,
+		editChat,
+	} = useChats()
+	const [editing, setEditing] = createSignal<string>()
 
-	const { state: chats, createChat, removeChat } = useChats()
+	const editTitle = (newTitle: string) => {
+		const uuid = editing()
+		if (uuid && newTitle)
+			editChat('own', uuid, chat => {
+				chat.name = newTitle
+			})
+		setEditing(undefined)
+	}
 
 	return (
 		<div class={styles.Chats}>
@@ -21,6 +37,7 @@ const ChatsPage: Component = () => {
 							name={chat.name}
 							members={chat.members}
 							delete={uuid => removeChat('own', uuid)}
+							onEdit={uuid => setEditing(uuid)}
 						/>
 					)}
 				</For>
@@ -41,6 +58,13 @@ const ChatsPage: Component = () => {
 					)}
 				</For>
 			</div>
+			<Show when={editing()}>
+				<InputModal
+					value={getChat('own', editing() as string)?.name ?? ''}
+					onsubmit={v => editTitle(v)}
+					onexit={() => setEditing(undefined)}
+				/>
+			</Show>
 		</div>
 	)
 }

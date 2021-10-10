@@ -1,5 +1,4 @@
 import * as db from '@/services/db'
-import { dropWhile } from 'lodash'
 import { ChatItem } from '@/types/chats'
 import { uuid } from './auth'
 
@@ -19,6 +18,28 @@ export const getChats = async (): Promise<{
 }> => {
 	const userID = uuid()
 	return userID ? await db.fetchChatItems(userID) : { own: [], joined: [] }
+}
+
+const findByUuid = (chats: ChatItem[], uuid: string): ChatItem | undefined =>
+	chats.find(chat => chat.uuid === uuid)
+
+export const getChat = (
+	group: 'own' | 'joined',
+	uuid: string,
+): ChatItem | undefined => findByUuid(state[group], uuid)
+
+export const editChat = (
+	group: 'own' | 'joined',
+	uuid: string,
+	modify: (chat: ChatItem) => void,
+): void => {
+	setState(
+		group,
+		produce<ChatItem[]>(chats => {
+			const chat = findByUuid(chats, uuid)
+			chat && modify(chat)
+		}),
+	)
 }
 
 export const createChat = async (): Promise<ChatItem> => {
@@ -55,6 +76,8 @@ export default function useChats(): {
 	state: State
 	createChat: typeof createChat
 	removeChat: typeof removeChat
+	getChat: typeof getChat
+	editChat: typeof editChat
 } {
 	getChats().then(chats => setState(chats))
 	// fetchJoinedChats().then(chats => setState('joinedChats', chats))
@@ -63,5 +86,7 @@ export default function useChats(): {
 		state,
 		createChat,
 		removeChat,
+		getChat,
+		editChat,
 	}
 }

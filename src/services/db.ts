@@ -7,7 +7,7 @@ export const insertUser = (
 	username?: string | null,
 	avatar?: string | null,
 ): void => {
-	usersDB.insert([
+	usersDB().insert([
 		{
 			uuid,
 			username: username ?? undefined,
@@ -17,7 +17,7 @@ export const insertUser = (
 }
 
 export const fetchChatItem = async (uuid: string): Promise<ChatItem> => {
-	const { data, error } = await chatsDB
+	const { data, error } = await chatsDB()
 		.select('created_at,members,name,owner,uuid')
 		.eq('uuid', uuid)
 
@@ -30,7 +30,7 @@ export const fetchChatItem = async (uuid: string): Promise<ChatItem> => {
 export const fetchChatItems = async (
 	uuid: string,
 ): Promise<{ own: ChatItem[]; joined: ChatItem[] }> => {
-	const { data, error } = await chatsDB
+	const { data, error } = await chatsDB()
 		.select('created_at,members,name,owner,uuid')
 		.contains('members', [uuid])
 
@@ -60,7 +60,7 @@ const mapChatItem = (data: definitions['chats']): ChatItem => ({
 })
 
 export const createChat = async (userID: string): Promise<ChatItem> => {
-	const { data, error } = await chatsDB.insert(
+	const { data, error } = await chatsDB().insert(
 		[
 			{
 				owner: userID,
@@ -77,7 +77,7 @@ export const createChat = async (userID: string): Promise<ChatItem> => {
 }
 
 export const removeChat = async (uuid: string): Promise<void> => {
-	const { data, error } = await chatsDB.delete().match({ uuid })
+	const { data, error } = await chatsDB().delete().match({ uuid })
 	console.log('deleted', data?.[0])
 
 	if (error) throw error

@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@amoutonbrady/solid-heroicons": "^0.8.0",
     "@supabase/supabase-js": "^1.24.0",
     "lodash": "^4.17.21",
     "solid-app-router": "^0.1.7",
