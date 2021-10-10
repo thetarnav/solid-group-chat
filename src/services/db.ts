@@ -78,7 +78,6 @@ export const createChat = async (userID: string): Promise<ChatItem> => {
 
 export const removeChat = async (uuid: string): Promise<void> => {
 	const { data, error } = await chatsDB().delete().match({ uuid })
-	console.log('deleted', data?.[0])
 
 	if (error) throw error
 	if (!data || !data.length) throw 'delete unsuccessful'

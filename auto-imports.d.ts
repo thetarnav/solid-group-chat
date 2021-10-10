@@ -10,6 +10,7 @@ declare global {
   const on: typeof import('solid-js')['on']
   const produce: typeof import('solid-js/store')['produce']
   const Show: typeof import('solid-js')['Show']
+  const splitProps: typeof import('solid-js')['splitProps']
   const Suspense: typeof import('solid-js')['Suspense']
   const useData: typeof import('solid-app-router')['useData']
   const useNavigate: typeof import('solid-app-router')['useNavigate']

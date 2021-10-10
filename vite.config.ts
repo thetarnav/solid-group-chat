@@ -17,6 +17,8 @@ export default defineConfig({
 						'createComputed',
 						'createMemo',
 						'on',
+						// utils
+						'splitProps',
 						// components
 						'Suspense',
 						'For',

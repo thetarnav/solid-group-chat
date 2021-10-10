@@ -59,8 +59,6 @@ export const removeChat = async (
 	group: 'own' | 'joined',
 	uuid: string,
 ): Promise<void> => {
-	console.log('remove', group, uuid)
-
 	if (group === 'own') {
 		try {
 			await db.removeChat(uuid)

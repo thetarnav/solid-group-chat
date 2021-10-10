@@ -1,7 +1,13 @@
 import { Icon } from '@amoutonbrady/solid-heroicons'
-import { pencil } from '@amoutonbrady/solid-heroicons/solid'
+import {
+	arrowRight,
+	link,
+	pencil,
+	trash,
+} from '@amoutonbrady/solid-heroicons/solid'
 
 import styles from './Chats.module.css'
+import Button from '@/components/Button'
 
 const ChatCard: Component<{
 	uuid: string
@@ -25,13 +31,19 @@ const ChatCard: Component<{
 				</div>
 				<div class="footer">
 					<div>
-						<button
+						<Button
 							class="delete"
-							onclick={() => props.delete?.(props.uuid)}
-						>
-							Remove
-						</button>
-						<button class="join">Join</button>
+							onClick={() => props.delete?.(props.uuid)}
+							icon={trash}
+						/>
+						<Button
+							class="share"
+							onClick={() => props.delete?.(props.uuid)}
+							icon={link}
+						/>
+						<Button class="join" iconRight={arrowRight}>
+							Join
+						</Button>
 					</div>
 				</div>
 			</div>

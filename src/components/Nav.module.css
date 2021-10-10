@@ -14,5 +14,8 @@
 		.username {
 			@apply font-semibold;
 		}
+		button {
+			@apply bg-blue-700 hover:bg-blue-800;
+		}
 	}
 }
