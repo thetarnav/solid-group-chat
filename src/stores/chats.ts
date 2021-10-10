@@ -1,4 +1,5 @@
 import * as db from '@/services/db'
+import { dropWhile } from 'lodash'
 import { ChatItem } from '@/types/chats'
 import { uuid } from './auth'
 
@@ -25,7 +26,6 @@ export const createChat = async (): Promise<ChatItem> => {
 	if (!userID) throw 'no user uuid'
 	try {
 		const chat = await db.createChat(userID)
-		console.log(chat)
 		setState('own', chats => [...chats, chat])
 		return chat
 	} catch (error) {
@@ -34,9 +34,27 @@ export const createChat = async (): Promise<ChatItem> => {
 	}
 }
 
+export const removeChat = async (
+	group: 'own' | 'joined',
+	uuid: string,
+): Promise<void> => {
+	console.log('remove', group, uuid)
+
+	if (group === 'own') {
+		try {
+			await db.removeChat(uuid)
+		} catch (error) {
+			console.error(error)
+			return
+		}
+	}
+	setState(group, chats => chats.filter(chat => chat.uuid !== uuid))
+}
+
 export default function useChats(): {
 	state: State
-	createChat: () => Promise<ChatItem>
+	createChat: typeof createChat
+	removeChat: typeof removeChat
 } {
 	getChats().then(chats => setState(chats))
 	// fetchJoinedChats().then(chats => setState('joinedChats', chats))
@@ -44,5 +62,6 @@ export default function useChats(): {
 	return {
 		state,
 		createChat,
+		removeChat,
 	}
 }

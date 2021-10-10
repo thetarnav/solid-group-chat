@@ -1,13 +1,14 @@
 import styles from './Chats.module.css'
 
 const ChatCard: Component<{
-	id: string
+	uuid: string
 	name: string
 	members: number
+	delete?: (uuid: string) => void
 }> = props => {
 	return (
 		<div class={styles.ChatItem}>
-			<div class="id">{props.id}</div>
+			<div class="id">{props.uuid}</div>
 			<div class="body">
 				<div class="content">
 					<h3>{props.name}</h3>
@@ -15,7 +16,12 @@ const ChatCard: Component<{
 				</div>
 				<div class="footer">
 					<div>
-						<button class="delete">Remove</button>
+						<button
+							class="delete"
+							onclick={() => props.delete?.(props.uuid)}
+						>
+							Remove
+						</button>
 						<button class="join">Join</button>
 					</div>
 				</div>

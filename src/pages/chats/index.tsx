@@ -8,7 +8,7 @@ import ChatCard from './ChatItem'
 const ChatsPage: Component = () => {
 	if (!useAuthGuard()) return
 
-	const { state: chats, createChat } = useChats()
+	const { state: chats, createChat, removeChat } = useChats()
 
 	return (
 		<div class={styles.Chats}>
@@ -17,9 +17,10 @@ const ChatsPage: Component = () => {
 				<For each={chats.own}>
 					{chat => (
 						<ChatCard
-							id={chat.uuid}
+							uuid={chat.uuid}
 							name={chat.name}
 							members={chat.members}
+							delete={uuid => removeChat('own', uuid)}
 						/>
 					)}
 				</For>
@@ -32,9 +33,10 @@ const ChatsPage: Component = () => {
 				<For each={chats.joined}>
 					{chat => (
 						<ChatCard
-							id={chat.uuid}
+							uuid={chat.uuid}
 							name={chat.name}
 							members={chat.members}
+							delete={uuid => removeChat('joined', uuid)}
 						/>
 					)}
 				</For>
