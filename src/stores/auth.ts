@@ -16,9 +16,12 @@ export const avatar = (): string | null => authState.avatar
 export const isLoggedIn = (): boolean => !!authState.uuid
 
 export const signIn = async (): Promise<void> => {
-	const { error } = await auth.signIn({
-		provider: 'github',
-	})
+	const { error } = await auth.signIn(
+		{
+			provider: 'github',
+		},
+		import.meta.env.DEV ? { redirectTo: 'http://localhost:3000' } : undefined,
+	)
 	// eslint-disable-next-line no-console
 	if (error) console.error(error)
 }
