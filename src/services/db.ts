@@ -16,11 +16,22 @@ export const insertUser = (
 	])
 }
 
+export const fetchChatItem = async (uuid: string): Promise<ChatItem> => {
+	const { data, error } = await chatsDB
+		.select('created_at,members,name,owner,uuid')
+		.eq('uuid', uuid)
+
+	if (error) throw error
+	if (!data || !data.length) throw 'query unsuccessful'
+
+	return mapChatItem(data[0])
+}
+
 export const fetchChatItems = async (
 	uuid: string,
 ): Promise<{ own: ChatItem[]; joined: ChatItem[] }> => {
 	const { data, error } = await chatsDB
-		.select('id,created_at,members,name,owner')
+		.select('created_at,members,name,owner,uuid')
 		.contains('members', [uuid])
 
 	if (error) throw error
@@ -42,8 +53,25 @@ export const fetchChatItems = async (
 }
 
 const mapChatItem = (data: definitions['chats']): ChatItem => ({
-	chatID: data.id,
+	uuid: data.uuid,
 	created: data.created_at ? Date.parse(data.created_at) : Date.now(),
 	members: data.members.length,
 	name: data.name,
 })
+
+export const createChat = async (userID: string): Promise<ChatItem> => {
+	const { data, error } = await chatsDB.insert(
+		[
+			{
+				owner: userID,
+				members: [userID],
+				messages: [],
+			},
+		],
+		{ returning: undefined },
+	)
+	if (error) throw error
+	if (!data || !data.length) throw 'insert unsuccessful'
+
+	return mapChatItem(data[0])
+}

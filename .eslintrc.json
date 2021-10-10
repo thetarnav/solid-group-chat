@@ -39,7 +39,7 @@
 		"no-var": "warn",
 		"vars-on-top": "warn",
 		"one-var-declaration-per-line": "off",
-		"arrow-body-style": "warn",
+		"arrow-body-style": "off",
 		"no-confusing-arrow": "off",
 		"prefer-destructuring": "warn",
 		"no-restricted-globals": "off",

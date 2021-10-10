@@ -1,6 +1,6 @@
 export interface ChatItem {
 	name: string
-	chatID: number
+	uuid: string
 	created: number
 	members: number
 }

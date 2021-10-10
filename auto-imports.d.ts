@@ -8,6 +8,7 @@ declare global {
   const createStore: typeof import('solid-js/store')['createStore']
   const For: typeof import('solid-js')['For']
   const on: typeof import('solid-js')['on']
+  const produce: typeof import('solid-js/store')['produce']
   const Show: typeof import('solid-js')['Show']
   const Suspense: typeof import('solid-js')['Suspense']
   const useData: typeof import('solid-app-router')['useData']

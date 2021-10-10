@@ -17,7 +17,6 @@ export interface paths {
 			parameters: {
 				query: {
 					/** Chat ID */
-					id?: parameters['rowFilter.chats.id']
 					created_at?: parameters['rowFilter.chats.created_at']
 					/** UserID of the user who owns this chat. */
 					owner?: parameters['rowFilter.chats.owner']
@@ -27,6 +26,8 @@ export interface paths {
 					members?: parameters['rowFilter.chats.members']
 					/** What's the name of the chat */
 					name?: parameters['rowFilter.chats.name']
+					/** Unique string, for invites. */
+					uuid?: parameters['rowFilter.chats.uuid']
 					/** Filtering Columns */
 					select?: parameters['select']
 					/** Ordering */
@@ -78,7 +79,6 @@ export interface paths {
 			parameters: {
 				query: {
 					/** Chat ID */
-					id?: parameters['rowFilter.chats.id']
 					created_at?: parameters['rowFilter.chats.created_at']
 					/** UserID of the user who owns this chat. */
 					owner?: parameters['rowFilter.chats.owner']
@@ -88,6 +88,8 @@ export interface paths {
 					members?: parameters['rowFilter.chats.members']
 					/** What's the name of the chat */
 					name?: parameters['rowFilter.chats.name']
+					/** Unique string, for invites. */
+					uuid?: parameters['rowFilter.chats.uuid']
 				}
 				header: {
 					/** Preference */
@@ -103,7 +105,6 @@ export interface paths {
 			parameters: {
 				query: {
 					/** Chat ID */
-					id?: parameters['rowFilter.chats.id']
 					created_at?: parameters['rowFilter.chats.created_at']
 					/** UserID of the user who owns this chat. */
 					owner?: parameters['rowFilter.chats.owner']
@@ -113,6 +114,8 @@ export interface paths {
 					members?: parameters['rowFilter.chats.members']
 					/** What's the name of the chat */
 					name?: parameters['rowFilter.chats.name']
+					/** Unique string, for invites. */
+					uuid?: parameters['rowFilter.chats.uuid']
 				}
 				body: {
 					/** chats */
@@ -226,13 +229,6 @@ export interface paths {
 
 export interface definitions {
 	chats: {
-		/**
-		 * Chat ID
-		 *
-		 * Note:
-		 * This is a Primary Key.<pk/>
-		 */
-		id: number
 		created_at?: string
 		/** UserID of the user who owns this chat. */
 		owner: string
@@ -246,6 +242,8 @@ export interface definitions {
 		members: string[]
 		/** What's the name of the chat */
 		name: string
+		/** Unique string, for invites. */
+		uuid: string
 	}
 	/** list with usernames and avatars */
 	users: {
@@ -283,7 +281,6 @@ export interface parameters {
 	/** chats */
 	'body.chats': definitions['chats']
 	/** Chat ID */
-	'rowFilter.chats.id': string
 	'rowFilter.chats.created_at': string
 	/** UserID of the user who owns this chat. */
 	'rowFilter.chats.owner': string
@@ -293,6 +290,8 @@ export interface parameters {
 	'rowFilter.chats.members': string
 	/** What's the name of the chat */
 	'rowFilter.chats.name': string
+	/** Unique string, for invites. */
+	'rowFilter.chats.uuid': string
 	/** users */
 	'body.users': definitions['users']
 	'rowFilter.users.uuid': string

@@ -1,2 +1,75 @@
 .Chats {
+	@apply py-16;
+	&:global {
+		> .own-group,
+		> .joined-group {
+			/* @apply flex flex-wrap items-stretch gap-8; */
+			@apply grid gap-10;
+			grid-template-columns: repeat(auto-fill, 16rem);
+		}
+		> .own-group {
+			@apply mb-16;
+		}
+		> .group-label {
+			@apply text-lg font-semibold text-gray-900 text-opacity-50 border-b-2 border-blue-100 mb-8 pb-2;
+		}
+	}
+}
+
+.CreateNew {
+	@apply min-h-[4rem] bg-blue-900 bg-opacity-10 rounded-lg border border-blue-100 text-gray-900 font-semibold transition-colors hover:bg-opacity-20;
+}
+
+.ChatItem {
+	@apply h-32 relative cursor-pointer transition-transform;
+
+	h3 {
+		@apply text-lg font-medium leading-tight mb-2;
+	}
+
+	:global {
+		.id {
+			@apply absolute top-1 right-2 pointer-events-none text-gray-600 font-mono text-xs;
+		}
+		.body {
+			@apply overflow-hidden rounded-lg border border-blue-100;
+			.content {
+				@apply h-32 p-6 bg-white  rounded-t-lg;
+			}
+		}
+		.footer {
+			@apply h-0 overflow-hidden;
+			@apply bg-white border-t-0 border-blue-100 rounded-b-lg transition-all;
+
+			div {
+				@apply w-full h-12 -mt-12 transition-all;
+				@apply grid grid-cols-2 gap-2;
+			}
+
+			button {
+				@apply font-semibold text-gray-900 m-2 rounded transition-colors;
+				&.delete {
+					@apply bg-red-500 bg-opacity-20 mr-0;
+				}
+				&.join {
+					@apply bg-blue-500 bg-opacity-20 ml-0;
+				}
+				&:hover {
+					@apply bg-opacity-100 text-white;
+				}
+			}
+		}
+	}
+
+	&:hover {
+		transform: translateY(-1rem);
+		:global {
+			.footer {
+				@apply h-12 border-t;
+				div {
+					@apply mt-0;
+				}
+			}
+		}
+	}
 }

@@ -2,7 +2,7 @@
 	@apply h-full flex flex-col;
 
 	main {
-		@apply p-8 flex-grow;
+		@apply p-8 flex-grow overflow-y-auto;
 	}
 }
 

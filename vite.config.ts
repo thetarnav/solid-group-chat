@@ -22,7 +22,7 @@ export default defineConfig({
 						'For',
 						'Show',
 					],
-					'solid-js/store': ['createStore'],
+					'solid-js/store': ['createStore', 'produce'],
 					'solid-app-router': ['useNavigate', 'useParams', 'useData'],
 				},
 			],
