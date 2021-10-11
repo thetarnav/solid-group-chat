@@ -1,5 +1,6 @@
 import { useAuthGuard } from '@/router'
 import useChats from '@/stores/chats'
+import { updateChatName } from '@/services/db'
 
 import styles from './Chats.module.css'
 
@@ -17,12 +18,15 @@ const ChatsPage: Component = () => {
 	} = useChats()
 	const [editing, setEditing] = createSignal<string>()
 
-	const editTitle = (newTitle: string) => {
+	const editTitle = (name: string) => {
 		const uuid = editing()
-		if (uuid && newTitle)
+		if (uuid && name) {
+			name = name.slice(0, 35)
 			editChat('own', uuid, chat => {
-				chat.name = newTitle
+				chat.name = name
 			})
+			updateChatName(uuid, name)
+		}
 		setEditing(undefined)
 	}
 

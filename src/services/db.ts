@@ -1,5 +1,4 @@
 import { chatsDB, usersDB } from '@/services/supabase'
-import { ChatItem } from '@/types/chats'
 import { definitions } from '@/types/supabase'
 
 export const insertUser = (
@@ -14,6 +13,16 @@ export const insertUser = (
 			avatar: avatar ?? undefined,
 		},
 	])
+}
+
+export const fetchUser = async (uuid: string): Promise<UserInfo> => {
+	const { data, error } = await usersDB().select().match({ uuid })
+	if (error) throw error
+	if (!data || !data.length) throw 'query unsuccessful'
+	return {
+		avatar: data[0].avatar,
+		username: data[0].username,
+	}
 }
 
 export const fetchChatItem = async (uuid: string): Promise<ChatItem> => {
@@ -55,7 +64,7 @@ export const fetchChatItems = async (
 const mapChatItem = (data: definitions['chats']): ChatItem => ({
 	uuid: data.uuid,
 	created: data.created_at ? Date.parse(data.created_at) : Date.now(),
-	members: data.members.length,
+	members: data.members,
 	name: data.name,
 })
 
@@ -81,4 +90,12 @@ export const removeChat = async (uuid: string): Promise<void> => {
 
 	if (error) throw error
 	if (!data || !data.length) throw 'delete unsuccessful'
+}
+
+export const updateChatName = async (
+	uuid: string,
+	name: string,
+): Promise<void> => {
+	const { error } = await chatsDB().update({ name }).match({ uuid })
+	if (error) throw error
 }

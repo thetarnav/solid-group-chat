@@ -1,5 +1,4 @@
 import * as db from '@/services/db'
-import { ChatItem } from '@/types/chats'
 import { uuid } from './auth'
 
 interface State {

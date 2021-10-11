@@ -24,19 +24,30 @@
 	@apply h-32 relative transition-transform;
 
 	:global {
+		.id {
+			@apply absolute top-1 right-2 pointer-events-none text-gray-600 font-mono text-xs;
+		}
 		h3 {
-			@apply text-lg font-medium leading-tight mb-2 cursor-pointer;
+			@apply text-lg font-medium leading-tight select-none mb-2 cursor-pointer;
+			word-break: break-word;
 			button {
-				@apply inline px-1 box-content w-6 h-6 text-gray-500 opacity-0 transition-opacity;
+				@apply absolute inline px-1 box-content w-6 h-6 text-gray-500 opacity-0 transition-opacity;
 				vertical-align: middle;
 			}
 			&:hover button {
 				@apply opacity-100;
 			}
 		}
-		.id {
-			@apply absolute top-1 right-2 pointer-events-none text-gray-600 font-mono text-xs;
+		.members {
+			@apply flex -space-x-2;
+			img {
+				@apply w-6 h-6 rounded-full border-2 border-white;
+			}
+			.rest {
+				@apply pl-4 text-gray-600;
+			}
 		}
+
 		.body {
 			@apply overflow-hidden rounded-lg border border-blue-100;
 			.content {
@@ -45,10 +56,10 @@
 		}
 		.footer {
 			@apply h-0 overflow-hidden;
-			@apply bg-white border-t-0 border-blue-100 rounded-b-lg transition-all p-2;
+			@apply bg-white border-t-0 border-blue-100 rounded-b-lg transition-all;
 
 			div {
-				@apply w-full h-8 -mt-12 transition-all;
+				@apply w-full h-12 p-2 -mt-12 transition-all;
 				@apply grid gap-2 items-stretch;
 				grid-template-columns: 1fr 1fr 2fr;
 			}
@@ -56,10 +67,10 @@
 			button {
 				@apply p-0;
 				&.delete {
-					@apply bg-red-500 hover:bg-red-600;
+					/* @apply bg-red-500 hover:bg-red-600; */
+					@apply bg-gray-500 hover:bg-gray-600;
 				}
 				&.share {
-					@apply bg-gray-500 hover:bg-gray-600;
 				}
 			}
 		}
