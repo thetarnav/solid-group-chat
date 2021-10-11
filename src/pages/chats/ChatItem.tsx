@@ -1,4 +1,5 @@
-import { Icon } from '@amoutonbrady/solid-heroicons'
+import { drop } from 'lodash'
+import copy from 'copy-text-to-clipboard'
 import {
 	arrowRight,
 	link,
@@ -9,8 +10,9 @@ import { getUserInfo } from '@/stores/users'
 
 import styles from './Chats.module.css'
 
+import { Icon } from '@amoutonbrady/solid-heroicons'
 import Button from '@/components/Button'
-import { drop } from 'lodash'
+import { showToast } from '@/stores/toasts'
 
 const getUserAvatars = (
 	uuids: string[],
@@ -27,26 +29,39 @@ const getUserAvatars = (
 }
 
 const ChatCard: Component<{
+	own?: true
 	uuid: string
 	name: string
 	members: string[]
 	delete?: (uuid: string) => void
 	onEdit?: (uuid: string) => void
 }> = props => {
+	const navigate = useNavigate()
+
 	const userAvatars = createMemo<string[]>(() =>
 		getUserAvatars(props.members, 5),
 	)
+
+	const copyLink = () => {
+		copy(`${import.meta.env.VITE_BASE_URL}/chats/${props.uuid}`)
+		showToast('Copied chatroom link!')
+	}
 
 	return (
 		<div class={styles.ChatItem}>
 			<div class="id">{props.uuid}</div>
 			<div class="body">
 				<div class="content">
-					<h3 onclick={() => props.onEdit?.(props.uuid)}>
+					<h3
+						onclick={() => props.own && props.onEdit?.(props.uuid)}
+						classList={{ 'cursor-pointer': props.own }}
+					>
 						{props.name}
-						<button>
-							<Icon path={pencil} />
-						</button>
+						{props.own && (
+							<button>
+								<Icon path={pencil} />
+							</button>
+						)}
 					</h3>
 					<div class="members">
 						<For each={userAvatars()}>
@@ -58,7 +73,6 @@ const ChatCard: Component<{
 							</div>
 						</Show>
 					</div>
-					{/* <p>Members: {props.members}</p> */}
 				</div>
 				<div class="footer">
 					<div>
@@ -67,12 +81,12 @@ const ChatCard: Component<{
 							onClick={() => props.delete?.(props.uuid)}
 							icon={trash}
 						/>
+						<Button class="share" onClick={copyLink} icon={link} />
 						<Button
-							class="share"
-							onClick={() => props.delete?.(props.uuid)}
-							icon={link}
-						/>
-						<Button class="join" iconRight={arrowRight}>
+							class="join"
+							iconRight={arrowRight}
+							onClick={() => navigate('/chats/' + props.uuid)}
+						>
 							Join
 						</Button>
 					</div>

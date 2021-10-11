@@ -28,7 +28,7 @@
 			@apply absolute top-1 right-2 pointer-events-none text-gray-600 font-mono text-xs;
 		}
 		h3 {
-			@apply text-lg font-medium leading-tight select-none mb-2 cursor-pointer;
+			@apply text-lg font-medium leading-tight select-none mb-2;
 			word-break: break-word;
 			button {
 				@apply absolute inline px-1 box-content w-6 h-6 text-gray-500 opacity-0 transition-opacity;

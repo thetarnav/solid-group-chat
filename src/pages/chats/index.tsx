@@ -1,6 +1,7 @@
 import { useAuthGuard } from '@/router'
 import useChats from '@/stores/chats'
 import { updateChatName } from '@/services/db'
+import { showToast } from '@/stores/toasts'
 
 import styles from './Chats.module.css'
 
@@ -26,8 +27,27 @@ const ChatsPage: Component = () => {
 				chat.name = name
 			})
 			updateChatName(uuid, name)
+			showToast('Chat successfully renamed.')
 		}
 		setEditing(undefined)
+	}
+
+	const remove = async (uuid: string) => {
+		try {
+			await removeChat('own', uuid)
+			showToast('Chat removed forever...')
+		} catch (error) {
+			showToast("Couldn't remove chat. Please, reload and try again.")
+		}
+	}
+
+	const create = async () => {
+		try {
+			await createChat()
+			showToast('A new chatroom created.')
+		} catch (error) {
+			showToast("Couldn't create a new chat")
+		}
 	}
 
 	return (
@@ -37,15 +57,16 @@ const ChatsPage: Component = () => {
 				<For each={chats.own}>
 					{chat => (
 						<ChatCard
+							own={true}
 							uuid={chat.uuid}
 							name={chat.name}
 							members={chat.members}
-							delete={uuid => removeChat('own', uuid)}
+							delete={remove}
 							onEdit={uuid => setEditing(uuid)}
 						/>
 					)}
 				</For>
-				<button class={styles.CreateNew} onclick={createChat}>
+				<button class={styles.CreateNew} onclick={create}>
 					Create new
 				</button>
 			</div>

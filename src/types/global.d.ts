@@ -1,5 +1,5 @@
-declare type Component<P = Record<string, never>> =
-	import('solid-js').Component<P>
+// eslint-disable-next-line @typescript-eslint/ban-types
+declare type Component<P = {}> = import('solid-js').Component<P>
 
 interface UserInfo {
 	readonly username?: string

@@ -1,5 +1,4 @@
-import { RouteDefinition, useNavigate } from 'solid-app-router'
-import { createComputed, lazy, on } from 'solid-js'
+import { RouteDefinition } from 'solid-app-router'
 import { isLoggedIn } from './stores/auth'
 
 export const routes: RouteDefinition[] = [

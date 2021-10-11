@@ -11,14 +11,20 @@ export default defineConfig({
 			imports: [
 				{
 					'solid-js': [
+						// lifecycle
+						'onMount',
+						'onCleanup',
 						// reactivity
 						'createEffect',
 						'createSignal',
 						'createComputed',
 						'createMemo',
 						'on',
+						'untrack',
 						// utils
+						'createRoot',
 						'splitProps',
+						'lazy',
 						// components
 						'Suspense',
 						'For',

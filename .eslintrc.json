@@ -12,6 +12,7 @@
 	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/no-extra-semi": "off",
 		"no-console": "warn",
 		"no-debugger": "warn",
 		"no-tabs": 0,

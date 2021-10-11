@@ -1,10 +1,9 @@
-import { Session } from '@supabase/supabase-js'
+import { Session, User } from '@supabase/supabase-js'
 import { auth } from '../services/supabase'
 import { insertUser } from '@/services/db'
 import { setUserInfo } from './users'
 
 export const [authState, setAuthState] = createStore({
-	session: undefined as undefined | Session,
 	email: undefined as undefined | string,
 	username: undefined as undefined | string,
 	uuid: undefined as undefined | string,
@@ -31,28 +30,32 @@ export const signOut = (): void => {
 	auth.signOut()
 }
 
-auth.onAuthStateChange((event, session) => {
-	if (event === 'SIGNED_IN' && session && session.user) {
-		const uuid = session.user.id,
-			username: string | undefined =
-				session.user.user_metadata.user_name ?? undefined,
-			avatar: string | undefined =
-				session.user.user_metadata.avatar_url ?? undefined
+const setUser = (user: User | null) => {
+	if (!user) {
 		setAuthState({
-			session,
-			email: session.user.email ?? undefined,
-			username,
-			uuid,
-			avatar,
-		})
-		insertUser(uuid, username, avatar)
-		setUserInfo(uuid, username, avatar)
-	} else if (event === 'SIGNED_OUT' || event === 'USER_DELETED')
-		setAuthState({
-			session: undefined,
 			email: undefined,
 			username: undefined,
 			uuid: undefined,
 			avatar: undefined,
 		})
+		return
+	}
+	const uuid = user.id,
+		username: string | undefined = user.user_metadata.user_name ?? undefined,
+		avatar: string | undefined = user.user_metadata.avatar_url ?? undefined
+	setAuthState({
+		email: user.email ?? undefined,
+		username,
+		uuid,
+		avatar,
+	})
+	insertUser(uuid, username, avatar)
+	setUserInfo(uuid, username, avatar)
+}
+
+setUser(auth.user())
+
+auth.onAuthStateChange((event, session) => {
+	if (event === 'SIGNED_IN' && session?.user) setUser(session.user)
+	else if (event === 'SIGNED_OUT' || event === 'USER_DELETED') setUser(null)
 })
