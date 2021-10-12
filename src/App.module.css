@@ -1,8 +1,8 @@
 .App {
-	@apply h-full flex flex-col;
+	@apply h-full flex flex-col items-center;
 
 	main {
-		@apply p-8 flex-grow overflow-y-auto;
+		@apply p-8 flex-grow overflow-y-auto max-w-5xl w-full;
 	}
 }
 

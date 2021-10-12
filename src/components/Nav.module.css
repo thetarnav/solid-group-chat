@@ -5,7 +5,7 @@
 }
 
 .Logo {
-	@apply text-xl font-bold;
+	@apply text-xl font-bold cursor-pointer select-none;
 }
 
 .User {

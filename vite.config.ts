@@ -29,6 +29,8 @@ export default defineConfig({
 						'Suspense',
 						'For',
 						'Show',
+						'Switch',
+						'Match',
 					],
 					'solid-js/store': ['createStore', 'produce'],
 					'solid-app-router': ['useNavigate', 'useParams', 'useData'],

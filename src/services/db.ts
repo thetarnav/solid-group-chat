@@ -99,3 +99,14 @@ export const updateChatName = async (
 	const { error } = await chatsDB().update({ name }).match({ uuid })
 	if (error) throw error
 }
+
+export const fetchChatDetails = async (
+	uuid: string,
+): Promise<definitions['chats']> => {
+	const { data, error } = await chatsDB().select().match({ uuid })
+
+	if (error) throw error
+	if (!data || !data.length) throw 'query unsuccessful'
+
+	return data[0]
+}
