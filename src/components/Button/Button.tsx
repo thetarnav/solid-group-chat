@@ -16,23 +16,37 @@ interface Props extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
 		path: string
 		outline: boolean
 	}
+	kind?: 'default' | 'icon'
+	color?: 'blue' | 'gray'
 }
 
 const Button: Component<Props> = props => {
-	const [, external] = splitProps(props, ['iconLeft', 'iconRight', 'class'])
+	const [, external] = splitProps(props, [
+		'iconLeft',
+		'iconRight',
+		'icon',
+		'class',
+		'kind',
+		'color',
+	])
+
+	const classes = () =>
+		[styles.Button, props.class, props.kind, props.color]
+			.filter(c => c)
+			.join(' ')
 
 	return (
-		<button {...external} class={`${styles.Button} ${props.class ?? ''}`}>
+		<button {...external} class={classes()}>
 			{props.icon ? (
 				<Icon path={props.icon} />
 			) : (
 				<>
 					<Show when={props.iconLeft}>
-						<Icon path={props.iconLeft as any} class="left" />
+						{icon => <Icon path={icon} class="left-icon" />}
 					</Show>
 					{props.children}
 					<Show when={props.iconRight}>
-						<Icon path={props.iconRight as any} class="right" />
+						{icon => <Icon path={icon} class="right-icon" />}
 					</Show>
 				</>
 			)}

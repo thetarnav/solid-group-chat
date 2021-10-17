@@ -1,5 +1,4 @@
 import { isLoggedIn, signOut, username } from '@/stores/auth'
-import Button from './Button'
 
 import styles from './Nav.module.css'
 

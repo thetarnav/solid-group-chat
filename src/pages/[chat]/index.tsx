@@ -5,9 +5,7 @@ import { showToast } from '@/stores/toasts'
 
 import styles from './Chat.module.css'
 
-import Button from '@/components/Button'
-import { Icon } from '@amoutonbrady/solid-heroicons'
-import { link, x } from '@amoutonbrady/solid-heroicons/solid'
+import { link, paperAirplane, x } from '@amoutonbrady/solid-heroicons/solid'
 
 const ChatPage: Component = () => {
 	if (!useAuthGuard()) return
@@ -37,16 +35,22 @@ const ChatPage: Component = () => {
 			<Match when={chatState.details}>
 				{chat => (
 					<div class={styles.Page}>
-						<header>
+						<header class={styles.Header}>
 							<h1>{chat.name}</h1>
-							<button onclick={copyLink}>
-								<Icon path={link} />
-							</button>
-							<button onclick={() => navigate('/chats')}>
-								<Icon path={x} />
-							</button>
+							<Button
+								kind="icon"
+								color="gray"
+								icon={link}
+								onClick={copyLink}
+							/>
+							<Button
+								kind="icon"
+								color="gray"
+								icon={x}
+								onclick={() => navigate('/chats')}
+							/>
 						</header>
-						<div class="body">
+						<div class={styles.Body}>
 							<For
 								each={chat.messages}
 								fallback={<p>No messages in this chat</p>}
@@ -58,6 +62,10 @@ const ChatPage: Component = () => {
 									</div>
 								)}
 							</For>
+						</div>
+						<div class={styles.Input}>
+							<input type="text" />
+							<Button kind="icon" icon={paperAirplane} />
 						</div>
 					</div>
 				)}

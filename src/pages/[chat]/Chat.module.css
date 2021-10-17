@@ -1,23 +1,30 @@
 .Page {
-	@apply h-full flex flex-col items-stretch;
+	@apply h-full flex flex-col items-stretch space-y-6;
 
-	> header {
-		@apply mb-6 p-4 pl-6 flex items-center space-x-4 bg-white rounded-lg border border-blue-100;
-		h1 {
-			@apply flex-grow text-lg font-medium leading-tight;
-			word-break: break-word;
-		}
-		button {
-			@apply w-8 h-8 p-1 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-300 transition-colors;
-			svg {
-				@apply transform translate-y-0.5 translate-x-0.5;
-			}
-		}
+	/* All sections */
+	> * {
+		@apply flex p-4 bg-white rounded-lg border border-blue-100;
 	}
+}
 
-	:global {
-		.body {
-			@apply mb-6 p-4 flex flex-col space-y-4 bg-white rounded-lg border border-blue-100;
-		}
+.Header {
+	@apply pl-6 items-center space-x-4;
+	h1 {
+		@apply flex-grow text-lg font-medium leading-tight;
+		word-break: break-word;
+	}
+}
+
+.Body {
+	@apply flex-grow flex-col space-y-4;
+}
+
+.Input {
+	@apply h-16 relative flex items-center overflow-hidden;
+	input {
+		@apply absolute inset-0 w-full p-4 outline-none;
+	}
+	button {
+		@apply absolute right-4;
 	}
 }

@@ -1,4 +1,3 @@
-import Button from './Button'
 import styles from './InputModal.module.css'
 
 const InputModal: Component<{

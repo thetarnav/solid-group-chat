@@ -10,8 +10,6 @@ import { getUserInfo } from '@/stores/users'
 
 import styles from './Chats.module.css'
 
-import { Icon } from '@amoutonbrady/solid-heroicons'
-import Button from '@/components/Button'
 import { showToast } from '@/stores/toasts'
 
 const getUserAvatars = (

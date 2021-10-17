@@ -34,6 +34,8 @@ export default defineConfig({
 					],
 					'solid-js/store': ['createStore', 'produce'],
 					'solid-app-router': ['useNavigate', 'useParams', 'useData'],
+					'@/components': ['Button', 'Toaster'],
+					'@amoutonbrady/solid-heroicons': ['Icon'],
 				},
 			],
 		}),

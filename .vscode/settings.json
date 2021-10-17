@@ -14,5 +14,5 @@
 	"emmet.includeLanguages": {
 		"postcss": "css"
 	},
-	"cSpell.words": ["unplugin"]
+	"cSpell.words": ["unplugin", "untrack"]
 }
